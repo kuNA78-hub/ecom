@@ -1,6 +1,5 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import path from 'path';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -12,22 +11,33 @@ import orderRoutes from './routes/orderRoutes';
 import invitationRoutes from './routes/invitationRoutes';
 import dashboardRoutes from './routes/dashboardRoutes';
 
-// Load .env from the project root (server folder)
-dotenv.config({ path: path.join(__dirname, '..', '.env') });
-
+dotenv.config();
 connectDB();
 
 const app = express();
+
+// CORS configuration
+const allowedOrigins = process.env.FRONTEND_URL || 'http://localhost:5173';
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+
 app.use(helmet());
-app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
-
+app.get('/', (req, res) => {
+  res.json({ message: 'E-Commerce API is running', status: 'active' });
+});
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/invitations', invitationRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
 
 app.use(errorHandler);
 
