@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../store/store';
 import { updateQuantity, removeFromCart } from './cartSlice';
 import { Link } from 'react-router-dom';
-import { Container, Typography, List, ListItem, ListItemText, IconButton, TextField, Button, Paper, } from '@mui/material';
+import { Container, Typography, List, ListItem, ListItemText, IconButton, TextField, Button, Paper } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Cart() {
