@@ -4,8 +4,7 @@ import { z } from 'zod';
 import { useDispatch } from 'react-redux';
 import { login } from './authSlice';
 import { useNavigate, Link } from 'react-router-dom';
-import { Container, TextField, Button, Typography, Box, Paper, } from '@mui/material';
-
+import { Container, TextField, Button, Typography, Box, Paper } from '@mui/material';
 const schema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
